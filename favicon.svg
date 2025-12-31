@@ -6,6 +6,6 @@
     </linearGradient>
   </defs>
   <rect width="100" height="100" rx="18" fill="url(#gradient)"/>
-  <text x="50" y="58" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" letter-spacing="-2">KNK</text>
+  <text x="50" y="58" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="central" letter-spacing="0">KK</text>
 </svg>
 

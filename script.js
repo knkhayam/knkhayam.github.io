@@ -3,13 +3,21 @@ const navbar = document.getElementById('navbar');
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.querySelector('.nav-menu');
 const scrollToTop = document.getElementById('scrollToTop');
+const stickyContactBtn = document.getElementById('stickyContactBtn');
 
-// Show/hide scroll to top button and navbar effect
+// Show/hide scroll to top button, sticky contact button, and navbar effect
 window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
     navbar.classList.add('scrolled');
   } else {
     navbar.classList.remove('scrolled');
+  }
+  
+  // Show sticky contact button after scrolling past hero
+  if (window.scrollY > 400) {
+    stickyContactBtn.classList.add('visible');
+  } else {
+    stickyContactBtn.classList.remove('visible');
   }
   
   // Show scroll to top button after scrolling down

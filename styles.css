@@ -208,6 +208,28 @@ body {
   font-size: 1.1rem;
   color: var(--text-secondary);
   line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.hero-note {
+  font-size: 1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 2rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--primary-color);
+  display: inline-block;
+}
+
+.hero-cta {
+  margin: 2rem 0;
+}
+
+.hero-cta .btn {
+  font-size: 1.1rem;
+  padding: 1.125rem 2.5rem;
 }
 
 .hero-social-icons {
@@ -350,6 +372,48 @@ body {
   margin-top: 0.5rem;
 }
 
+/* Sticky Contact Button */
+.sticky-contact-btn {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: var(--gradient-1);
+  color: white;
+  text-decoration: none;
+  border-radius: 2rem;
+  box-shadow: var(--shadow-xl);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-20px);
+}
+
+.sticky-contact-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.sticky-contact-btn:hover {
+  transform: translateX(0) translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+.sticky-contact-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sticky-contact-btn span {
+  font-size: 0.95rem;
+}
+
 /* Scroll to Top Button */
 .scroll-to-top {
   position: fixed;
@@ -370,7 +434,7 @@ body {
   visibility: hidden;
   transform: translateY(20px);
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .scroll-to-top.visible {
@@ -476,6 +540,122 @@ body {
   font-weight: 700;
   margin-bottom: 2rem;
   color: var(--text-primary);
+}
+
+/* Projects Grid */
+.projects-grid {
+  margin-bottom: 4rem;
+}
+
+.impact-project-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--primary-color);
+}
+
+.impact-project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+}
+
+.impact-project-card.featured {
+  border-left-color: var(--accent-color);
+  background: linear-gradient(135deg, #fef3f7 0%, #ffffff 100%);
+}
+
+.project-summary {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--primary-color);
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.impact-structure {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.impact-item {
+  padding: 1.25rem;
+  background: var(--bg-secondary);
+  border-radius: 0.75rem;
+  border-left: 3px solid var(--primary-color);
+}
+
+.impact-item.highlight {
+  background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+  border-left-color: var(--accent-color);
+}
+
+.impact-label {
+  display: block;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.impact-item.highlight .impact-label {
+  color: var(--accent-color);
+}
+
+.impact-item p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.project-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.tools-label {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.tool-tag {
+  padding: 0.4rem 1rem;
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
 }
 
 /* Publications */
@@ -839,6 +1019,157 @@ body {
   margin-bottom: 4rem;
 }
 
+/* Tools Section */
+.tools-section {
+  padding: 6rem 0;
+  background: var(--bg-secondary);
+}
+
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tool-item {
+  padding: 0.5rem 1.25rem;
+  background: white;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+.tool-item:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.tools-note {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* Engagement Models Section */
+.engagement-section {
+  padding: 6rem 0;
+  background: var(--bg-primary);
+}
+
+.engagement-models {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 700px;
+  margin: 3rem auto 2rem;
+}
+
+.engagement-item {
+  padding: 1.5rem 2rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-md);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  border-left: 4px solid var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.engagement-item:hover {
+  transform: translateX(5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.engagement-item strong {
+  color: var(--primary-color);
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.authority-note {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-style: italic;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: var(--bg-secondary);
+  border-radius: 0.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* How I Work Section */
+.process-section {
+  padding: 6rem 0;
+  background: var(--bg-primary);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 3rem auto 0;
+}
+
+.process-step {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.process-step:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--gradient-1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 auto 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.process-step h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.process-step p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
 /* Contact Section */
 .contact-section {
   padding: 6rem 0;
@@ -856,6 +1187,17 @@ body {
 
 .contact-section .section-subtitle {
   color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-pricing {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  display: inline-block;
 }
 
 .contact-content {
@@ -1049,6 +1391,40 @@ body {
     max-width: 280px;
   }
 
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+  }
+
+  .hero-note {
+    font-size: 0.9rem;
+    padding: 0.625rem 1rem;
+  }
+
+  .hero-cta .btn {
+    font-size: 0.95rem;
+    padding: 0.875rem 1.5rem;
+  }
+
+  .sticky-contact-btn {
+    bottom: 1.5rem;
+    left: 1rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .sticky-contact-btn span {
+    font-size: 0.85rem;
+  }
+
+  .sticky-contact-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
   .scroll-to-top {
     bottom: 1.5rem;
     right: 1.5rem;
@@ -1059,6 +1435,16 @@ body {
   .scroll-to-top svg {
     width: 20px;
     height: 20px;
+  }
+
+  .project-summary {
+    font-size: 0.9rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .contact-pricing {
+    font-size: 1rem;
+    padding: 0.625rem 1.25rem;
   }
 }
 
