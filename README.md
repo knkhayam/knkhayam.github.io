@@ -1,64 +1,70 @@
 # Khuram Nawaz Khayam - Portfolio
 
-A modern, role-based portfolio website showcasing expertise in Research & AI, Full Stack Engineering, and Robotics.
+A business-focused portfolio website showcasing expertise in AI automation, scalable web platforms, and industrial automation systems. Built to demonstrate business impact and outcomes, not just technical skills.
 
-## 🚀 Features
+## 🎯 Purpose
 
-- **Role-Based Organization**: Content organized into three distinct roles:
-  - Researcher & AI Scientist
-  - Full Stack Engineer & DevOps
-  - Robotics Engineer
+This portfolio positions me as a problem solver who delivers measurable business results through:
+- **AI & Automation for Operational Efficiency** - Automating manual processes and reducing costs
+- **Scalable Web Platforms & MVPs** - Building production-ready software in 4-6 weeks
+- **Autonomous & Industrial Automation Systems** - Creating reliable systems for real-world environments
 
-- **Modern Design**: Beautiful, atomic, and powerful UI with:
-  - Smooth animations and transitions
-  - Responsive design for all devices
-  - Gradient accents and modern typography
-  - Interactive elements and hover effects
+## 🚀 Key Features
 
-- **Performance Optimized**: 
-  - Lightweight vanilla JavaScript
-  - Optimized CSS with smooth animations
-  - Fast loading times
+- **Business Impact Focus**: Every project follows Problem → Solution → Impact structure
+- **Clear Value Proposition**: "I help startups and businesses build production-ready software, automation, and AI systems"
+- **Engagement Models**: Transparent pricing and project structure
+- **Process Transparency**: "How I Work" section builds trust
+- **Mobile Responsive**: Optimized for all devices
+- **Fast Loading**: Static site with optimized assets
 
 ## 📋 Sections
 
-1. **Hero Section**: Introduction with key statistics and call-to-action buttons
-2. **Researcher Role**: Publications, research projects, and AI/ML expertise
-3. **Full Stack Engineer Role**: Professional experience, projects, and technical stack
-4. **Robotics Engineer Role**: Autonomous systems, embedded projects, and sensor integration
-5. **Contact Section**: Get in touch information
+1. **Hero Section**: Clear value proposition with call-to-action
+2. **AI & Automation**: Computer vision, ML systems, and process automation projects
+3. **Web Platforms**: Full-stack development, MVPs, and scalable systems
+4. **Industrial Automation**: Robotics, autonomous systems, and vision integration
+5. **How I Work**: 4-step process (Understand → Build → Iterate → Deliver)
+6. **Engagement Models**: Clear project structures and expectations
+7. **Tools I Use**: Outcome-focused technology stack
+8. **Contact**: Get in touch with consultation offer
 
 ## 🛠️ Technologies
 
-- HTML5
-- CSS3 (with CSS Grid, Flexbox, and Animations)
-- Vanilla JavaScript (ES6+)
-- Google Fonts (Inter)
+- **HTML5** - Semantic markup
+- **CSS3** - Modern styling with gradients, animations, and responsive design
+- **Vanilla JavaScript** - Smooth scrolling, animations, and interactivity
+- **Google Fonts** - Inter font family
 
 ## 📦 Deployment
 
-This portfolio is designed for GitHub Pages. Simply:
+This portfolio is designed for GitHub Pages:
 
 1. Push the code to your GitHub repository
 2. Enable GitHub Pages in repository settings
 3. Select the main branch as source
 4. Your portfolio will be live at `https://knkhayam.github.io`
 
-## 📝 Customization
-
-All content is in `index.html`. To customize:
-- Update personal information in the hero section
-- Modify role sections with your specific projects
-- Add or remove publications in the researcher section
-- Update contact information in the contact section
-
 ## 🎨 Design Philosophy
 
-The portfolio follows an "atomic" design approach - each section is focused, powerful, and to the point. The design emphasizes:
-- Clean, modern aesthetics
-- Smooth user experience
-- Clear information hierarchy
-- Professional presentation
+The portfolio follows a **business-first approach**:
+- Lead with business outcomes, not technical skills
+- Quantify impact (time saved, cost reduction, efficiency gains)
+- Clear value proposition for target clients (startups, SMEs)
+- Professional, modern design that builds trust
+- Mobile-first responsive design
+
+## 📝 Customization
+
+All content is in `index.html`. Key areas to customize:
+- Hero section: Value proposition and target audience
+- Projects: Problem → Solution → Impact structure
+- Engagement models: Pricing and project structures
+- Contact information: Email, location, social links
+
+## 🔄 Version Control
+
+CSS and JavaScript files use version query parameters (`?v=1`) for cache busting. Increment the version number when updating production files.
 
 ## 📄 License
 
@@ -66,4 +72,4 @@ See LICENSE file for details.
 
 ---
 
-Built with precision and passion.
+**Built with precision and passion** - Focused on delivering business impact, not just code.
