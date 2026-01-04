@@ -15,6 +15,7 @@ This portfolio positions me as a problem solver who delivers measurable business
 - **Clear Value Proposition**: "I help startups and businesses build production-ready software, automation, and AI systems"
 - **Engagement Models**: Transparent pricing and project structure
 - **Process Transparency**: "How I Work" section builds trust
+- **Help Assistant**: AI-powered chat assistant for visitors to discuss projects and capabilities
 - **Mobile Responsive**: Optimized for all devices
 - **Fast Loading**: Static site with optimized assets
 
@@ -35,6 +36,34 @@ This portfolio positions me as a problem solver who delivers measurable business
 - **CSS3** - Modern styling with gradients, animations, and responsive design
 - **Vanilla JavaScript** - Smooth scrolling, animations, and interactivity
 - **Google Fonts** - Inter font family
+- **Node.js/Express** - Backend API for chat assistant
+- **OpenAI API** - GPT-3.5-turbo for intelligent responses
+
+## 💬 Help Assistant Setup
+
+The portfolio includes an AI-powered help assistant. To set it up:
+
+1. **Backend Setup:**
+   ```bash
+   cd backend
+   npm install
+   cp env.template .env
+   # Add your OpenAI API key to .env
+   npm start
+   ```
+
+2. **Configure API URL:**
+   - Update `API_URL` in `script.js` to match your backend server URL
+   - For production, deploy backend separately and update the URL
+
+3. **Backend Features:**
+   - Single `/api/chat` endpoint
+   - Rate limiting (20 requests per 15 minutes)
+   - Context-aware responses based on portfolio
+   - Conversation history per session
+   - Uses cheapest OpenAI model (gpt-3.5-turbo)
+
+See `backend/README.md` for detailed backend documentation.
 
 ## 📦 Deployment
 
@@ -44,6 +73,8 @@ This portfolio is designed for GitHub Pages:
 2. Enable GitHub Pages in repository settings
 3. Select the main branch as source
 4. Your portfolio will be live at `https://knkhayam.github.io`
+
+**Note:** The chat assistant requires a separate backend deployment. The frontend will work without it, but the chat feature won't function.
 
 ## 🎨 Design Philosophy
 

@@ -229,3 +229,250 @@ const debouncedScrollHandler = debounce(() => {
 
 window.addEventListener('scroll', debouncedScrollHandler);
 
+// Chat Widget Functionality
+const chatWidget = document.getElementById('chatWidget');
+const chatToggleFloat = document.getElementById('chatToggleFloat');
+const chatToggleBtn = document.getElementById('chatToggleBtn');
+const chatForm = document.getElementById('chatForm');
+const chatInput = document.getElementById('chatInput');
+const chatMessages = document.getElementById('chatMessages');
+const chatSendBtn = document.getElementById('chatSendBtn');
+
+// Ensure chat button is always visible
+function ensureChatButtonVisible() {
+  if (chatToggleFloat) {
+    chatToggleFloat.style.display = 'flex';
+    chatToggleFloat.style.visibility = 'visible';
+    chatToggleFloat.style.opacity = '1';
+    chatToggleFloat.classList.remove('hidden');
+  }
+}
+
+// Run on load and after a short delay to override any animations
+ensureChatButtonVisible();
+setTimeout(ensureChatButtonVisible, 100);
+setTimeout(ensureChatButtonVisible, 700); // After entrance animation completes
+
+// Generate or retrieve session ID
+let sessionId = localStorage.getItem('chatSessionId') || generateSessionId();
+if (!localStorage.getItem('chatSessionId')) {
+  localStorage.setItem('chatSessionId', sessionId);
+}
+
+function generateSessionId() {
+  return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Backend API URL - adjust this to match your backend server
+// For production, you can set this via a data attribute on the chat widget or use environment-based config
+const API_URL = chatWidget.dataset.apiUrl || 'http://localhost:3000/api/chat';
+
+// Toggle chat widget
+function toggleChat() {
+  chatWidget.classList.toggle('active');
+  // Chat button stays visible at all times
+}
+
+chatToggleFloat.addEventListener('click', toggleChat);
+chatToggleBtn.addEventListener('click', toggleChat);
+
+// Simple markdown renderer for chat messages
+function renderMarkdown(text) {
+  if (!text) return '';
+  
+  // Escape HTML to prevent XSS
+  function escapeHtml(unsafe) {
+    return unsafe
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+  
+  let html = escapeHtml(text);
+  
+  // Split by code blocks to preserve them
+  const codeBlockRegex = /```([\s\S]*?)```/g;
+  const codeBlocks = [];
+  let codeBlockIndex = 0;
+  
+  html = html.replace(codeBlockRegex, (match, code) => {
+    const placeholder = `__CODE_BLOCK_${codeBlockIndex}__`;
+    codeBlocks[codeBlockIndex] = '<pre><code>' + code.trim() + '</code></pre>';
+    codeBlockIndex++;
+    return placeholder;
+  });
+  
+  // Process inline code
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  
+  // Process bold: **text** or __text__ (must be at least 2 chars)
+  html = html.replace(/\*\*([^*\n]+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+  
+  // Process italic: *text* (single asterisk, not already processed as bold)
+  html = html.replace(/\*([^*\n]+?)\*/g, '<em>$1</em>');
+  
+  // Process links: [text](url)
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  
+  // Restore code blocks
+  codeBlocks.forEach((codeBlock, index) => {
+    html = html.replace(`__CODE_BLOCK_${index}__`, codeBlock);
+  });
+  
+  // Line breaks: \n -> <br>
+  html = html.replace(/\n/g, '<br>');
+  
+  return html;
+}
+
+// Add message to chat
+function addMessage(content, isUser = false) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `chat-message ${isUser ? 'chat-message-user' : 'chat-message-assistant'}`;
+  
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'message-content';
+  
+  // For user messages, use textContent (security)
+  // For assistant messages, render markdown
+  if (isUser) {
+    const p = document.createElement('p');
+    p.textContent = content;
+    contentDiv.appendChild(p);
+  } else {
+    // Render markdown for assistant messages
+    contentDiv.innerHTML = renderMarkdown(content);
+  }
+  
+  messageDiv.appendChild(contentDiv);
+  chatMessages.appendChild(messageDiv);
+  
+  // Scroll to bottom
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  return messageDiv;
+}
+
+// Add loading indicator
+function addLoadingMessage() {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'chat-message chat-message-assistant';
+  messageDiv.id = 'loadingMessage';
+  
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'message-content';
+  
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'chat-loading';
+  loadingDiv.innerHTML = '<span></span><span></span><span></span>';
+  contentDiv.appendChild(loadingDiv);
+  
+  messageDiv.appendChild(contentDiv);
+  chatMessages.appendChild(messageDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  return messageDiv;
+}
+
+// Remove loading indicator
+function removeLoadingMessage() {
+  const loadingMsg = document.getElementById('loadingMessage');
+  if (loadingMsg) {
+    loadingMsg.remove();
+  }
+}
+
+// Send message to backend
+async function sendMessage(message) {
+  try {
+    // Disable input and button
+    chatInput.disabled = true;
+    chatSendBtn.disabled = true;
+    
+    // Add user message
+    addMessage(message, true);
+    
+    // Add loading indicator
+    addLoadingMessage();
+    
+    // Send to backend
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: message,
+        sessionId: sessionId
+      })
+    });
+    
+    // Remove loading indicator
+    removeLoadingMessage();
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    // Add assistant response
+    if (data.success && data.message) {
+      addMessage(data.message, false);
+    } else {
+      throw new Error('Invalid response from server');
+    }
+    
+  } catch (error) {
+    console.error('Error sending message:', error);
+    removeLoadingMessage();
+    
+    // Show error message
+    let errorMsg = 'Sorry, I encountered an error. Please try again.';
+    if (error.message.includes('rate limit')) {
+      errorMsg = 'Too many requests. Please wait a moment and try again.';
+    } else if (error.message.includes('Failed to fetch')) {
+      errorMsg = 'Unable to connect to the server. Please check if the backend is running.';
+    }
+    
+    addMessage(errorMsg, false);
+  } finally {
+    // Re-enable input and button
+    chatInput.disabled = false;
+    chatSendBtn.disabled = false;
+    chatInput.focus();
+  }
+}
+
+// Handle form submission
+chatForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const message = chatInput.value.trim();
+  
+  if (message) {
+    chatInput.value = '';
+    await sendMessage(message);
+  }
+});
+
+// Allow Enter key to send (but Shift+Enter for new line)
+chatInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    chatForm.dispatchEvent(new Event('submit'));
+  }
+});
+
+// Auto-focus input when chat opens
+chatToggleFloat.addEventListener('click', () => {
+  setTimeout(() => {
+    if (chatWidget.classList.contains('active')) {
+      chatInput.focus();
+    }
+  }, 300);
+});
+

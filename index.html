@@ -529,6 +529,62 @@
     </svg>
   </button>
 
+  <!-- Help Assistant Chat Widget -->
+  <div class="chat-widget" id="chatWidget" data-api-url="http://localhost:8000/api/chat">
+    <div class="chat-widget-header" id="chatWidgetHeader">
+      <div class="chat-header-content">
+        <div class="chat-avatar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div class="chat-header-text">
+          <h3>Help Assistant</h3>
+          <p>Ask me anything about projects & capabilities</p>
+        </div>
+      </div>
+      <button class="chat-toggle-btn" id="chatToggleBtn" aria-label="Toggle chat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="chat-widget-body" id="chatWidgetBody">
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message chat-message-assistant">
+          <div class="message-content">
+            <p>Hello! It's me, Khuram. This is my agentic AI assistant - think of it as me, but available 24/7. I can help you learn about my expertise, discuss your projects, and see if I can help implement your ideas. What would you like to know?</p>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <form id="chatForm" class="chat-form">
+          <input 
+            type="text" 
+            id="chatInput" 
+            class="chat-input" 
+            placeholder="Type your message..." 
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="chat-send-btn" id="chatSendBtn" aria-label="Send message">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Toggle Button (Floating) -->
+  <button class="chat-toggle-float" id="chatToggleFloat" aria-label="Open chat assistant">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span class="chat-badge" id="chatBadge" style="display: none;">1</span>
+  </button>
+
   <script src="script.js?v=2"></script>
 </body>
 </html>
