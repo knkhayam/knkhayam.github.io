@@ -1,0 +1,30 @@
+name: Deploy Backend to VPS
+
+on:
+  push:
+    branches:
+      - main  # or staging branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.1
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Sync backend
+        run: |
+          rsync -az --delete --exclude='node_modules/' --exclude='.env' ./backend ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/service.kiebit.com/public_html/
+
+      - name: Install dependencies & restart
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
+            cd /var/www/service.kiebit.com/public_html/backend &&
+            npm install &&
+            pm2 restart backend || pm2 start backend --name backend
+          "
