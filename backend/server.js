@@ -14,12 +14,19 @@ dotenv.config({ path: join(__dirname, '.env') });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.json());
-app.use(cors({
+// CORS configuration
+const corsOptions = {
   origin: process.env.ALLOWED_ORIGIN || '*',
-  credentials: true
-}));
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+// Middleware - CORS must be before other middleware
+app.use(cors(corsOptions));
+app.use(express.json());
 
 // Rate limiting middleware
 const limiter = rateLimit({
