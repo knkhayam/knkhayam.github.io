@@ -26,6 +26,7 @@ const corsOptions = {
 
 // Middleware - CORS must be before other middleware
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 // Rate limiting middleware
