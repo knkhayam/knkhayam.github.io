@@ -14,9 +14,10 @@ dotenv.config({ path: join(__dirname, '.env') });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS configuration
+const allowedOrigin = process.env.ALLOWED_ORIGIN;
+
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGIN || '*',
+  origin: allowedOrigin,
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -26,16 +27,25 @@ const corsOptions = {
 
 // Middleware - CORS must be before other middleware
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 app.use(express.json());
 
-// Rate limiting middleware
+// Explicit OPTIONS handler for /api/chat (must be before rate limiting)
+app.options('/api/chat', (req, res) => {
+  res.header('Access-Control-Allow-Origin', allowedOrigin);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(204);
+});
+
+// Rate limiting middleware - skip OPTIONS requests
 const limiter = rateLimit({
   windowMs: config.rateLimit.windowMs,
   max: config.rateLimit.max,
   message: config.rateLimit.message,
   standardHeaders: config.rateLimit.standardHeaders,
   legacyHeaders: config.rateLimit.legacyHeaders,
+  skip: (req) => req.method === 'OPTIONS' // Skip rate limiting for preflight requests
 });
 
 // Apply rate limiting to all routes
@@ -67,7 +77,7 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   if (!process.env.OPENAI_API_KEY) {
-    console.warn('⚠️  WARNING: OPENAI_API_KEY not set');
+    console.warn('WARNING: OPENAI_API_KEY not set');
   }
 });
 
