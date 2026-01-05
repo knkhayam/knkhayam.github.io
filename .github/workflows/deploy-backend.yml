@@ -36,5 +36,5 @@ jobs:
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
             cd /var/www/service.kiebit.com/public_html/backend &&
             npm install &&
-            pm2 restart backend || pm2 start backend --name backend
+            pm2 restart service-kiebit
           "
